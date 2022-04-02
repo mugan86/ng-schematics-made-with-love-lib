@@ -100,6 +100,37 @@
           }
         }
       }
+    },
+    "made-with-love": {
+      "projectType": "library",
+      "root": "projects/made-with-love",
+      "sourceRoot": "projects/made-with-love/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/made-with-love/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/made-with-love/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/made-with-love/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/made-with-love/src/test.ts",
+            "tsConfig": "projects/made-with-love/tsconfig.spec.json",
+            "karmaConfig": "projects/made-with-love/karma.conf.js"
+          }
+        }
+      }
     }
   },
   "defaultProject": "made-with-love-workspace"
