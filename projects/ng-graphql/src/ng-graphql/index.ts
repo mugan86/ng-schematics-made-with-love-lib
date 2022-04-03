@@ -2,6 +2,7 @@ import {
   apply,
   chain,
   mergeWith,
+  move,
   noop,
   Rule,
   SchematicContext,
@@ -96,17 +97,6 @@ function addModuleToImports(options: any): Rule {
   };
 }
 
-export default function (options: any): Rule {
-  return chain([
-    createFiles(options),
-    options && options.skipPackageJson ? noop() : addPackageJsonDependencies(),
-    options && options.skipPackageJson
-      ? noop()
-      : installPackageJsonDependencies(),
-    options && options.skipModuleImport ? noop() : addModuleToImports(options),
-  ]);
-}
-
 // Esta es una función "factory" del esquema que ddevuelve una regla (función)
 export function createFiles(_options: any): Rule {
   
@@ -114,6 +104,16 @@ export function createFiles(_options: any): Rule {
   return (_tree: Tree, _context: SchematicContext) => {
     // Obtenemos los directorios y ficheros de nuestro template
     const sourceTemplates = url('./files');
+
+    const workspace = getWorkspace(_tree);
+
+    const project = getProjectFromWorkspace(
+      workspace,
+      // Takes the first project in case it's not provided by CLI
+      _options.project ? _options.project : Object.keys(workspace['projects'])[0]
+    );
+
+    console.log(_options);
 
     // parametrizamos nuestro recurso del template
     // apply acepta la fuente y el array de reglas del "template"
@@ -126,14 +126,27 @@ export function createFiles(_options: any): Rule {
         // y parametrizamos dentro de la fuente del template
         template({
           ..._options,
+          // replaceText
           // ...strings,
           // addInterrogation 
           // Añadimos está función para que añadamos un "?" cuando 
           // llamemos a la función desde el template
-        })
+        }),
+        move(project.sourceRoot?.concat('/app') || ''),
       ]
     );
     // Mezclamos nuestro template en el "tree"
     return mergeWith(sourceParametrizedTemplates)(_tree, _context);
   };
+}
+
+export default function (options: any): Rule {
+  return chain([
+    createFiles(options),
+    options && options.skipPackageJson ? noop() : addPackageJsonDependencies(),
+    options && options.skipPackageJson
+      ? noop()
+      : installPackageJsonDependencies(),
+    options && options.skipModuleImport ? noop() : addModuleToImports(options),
+  ]);
 }

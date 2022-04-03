@@ -3,7 +3,8 @@
   "schematics": {
     "ng-graphql": {
       "description": "A blank schematic.",
-      "factory": "./ng-graphql/index"
+      "factory": "./ng-graphql/index",
+      "schema": "./ng-graphql/schema.json"
     }
   }
 }

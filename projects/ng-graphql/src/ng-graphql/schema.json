@@ -1,0 +1,29 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "GraphQLConfiguration",
+    "title": "GraphQL Basic conffiguration",
+    "type": "object",
+    "description": "Need configuration data info",
+    "properties": {
+      "url": {
+        "type": "string",
+        "description": "GraphQL API URL",
+        "x-prompt": "Input GraphQL Url:",
+        "$default": {
+          "$source": "argv",
+          "index": 0
+        },
+        "default": ""
+      },
+      "ws": {
+          "type": "boolean",
+          "description": "Select if want to config with Web sockets or no",
+          "x-prompt": "Use Web Sockets (Subscriptions)",
+          "$default": {
+            "$source": "argv",
+            "index": 1
+          },
+          "default": false
+      }
+    }
+  }
