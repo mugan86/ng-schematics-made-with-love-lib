@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { MadeWithLoveModule } from '@mugan86/ng-made-with-love';
+import { GraphQLModule } from './@graphql';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { MadeWithLoveModule } from '@mugan86/ng-made-with-love';
   ],
   imports: [
     BrowserModule,
-    MadeWithLoveModule
+    MadeWithLoveModule,
+    GraphQLModule
   ],
   providers: [],
   bootstrap: [AppComponent]

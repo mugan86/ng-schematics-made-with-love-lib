@@ -1,0 +1,9 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "ng-graphql": {
+      "description": "A blank schematic.",
+      "factory": "./ng-graphql/index"
+    }
+  }
+}
